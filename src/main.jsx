@@ -15,7 +15,8 @@ const navItems = [
   { label: "作品", href: "#work" },
   { label: "联系", href: "#contact" },
 ];
-const tags = Array.from({ length: 7 }, (_, index) => `个人标签`);
+const tags = ["UX Design", "App Design", "Dashboard", "Wireframe", "User Research", "Prototype", "Design System"];
+const marqueeTags = Array.from({ length: 4 }, () => tags).flat();
 
 const abilityCards = [
   {
@@ -170,7 +171,7 @@ function Button({ children, tone = "dark" }) {
 
 function WorkButton() {
   return (
-    <a className="button button-dark work-button" href="#contact">
+    <a className="button button-dark button-uiverse work-button" href="#contact">
       <span>前往查看</span>
       <ArrowRight size={24} strokeWidth={1.8} />
     </a>
@@ -182,7 +183,7 @@ function Hero() {
     <section className="hero-section" id="home">
       <Header />
       <div className="hero-grid" aria-hidden="true">
-        <ShapeGrid direction="diagonal" speed={0.19} squareSize={40} borderColor="#DDE1E8" hoverFillColor="rgba(22, 23, 25, 0.12)" hoverTrailAmount={3} />
+        <ShapeGrid direction="up" speed={0.19} squareSize={40} borderColor="#DDE1E8" hoverFillColor="rgba(22, 23, 25, 0.12)" hoverTrailAmount={3} />
       </div>
       <div className="safe hero-inner">
         <h1>
@@ -212,13 +213,20 @@ function AbilitySection() {
         </div>
         <div className="tag-rail" aria-label="个人标签列表">
           <div className="tag-marquee-track">
-            {[0, 1].map((groupIndex) => (
-              <div className="tag-marquee-group" aria-hidden={groupIndex === 1 ? "true" : undefined} key={groupIndex}>
-                {tags.map((tag, index) => (
-                  <span key={`${groupIndex}-${tag}-${index}`}>{tag}</span>
-                ))}
-              </div>
-            ))}
+            <div className="tag-marquee-flow">
+              {[0, 1].map((groupIndex) => (
+                <div className="tag-marquee-group" aria-hidden={groupIndex === 1 ? "true" : undefined} key={groupIndex}>
+                  {marqueeTags.map((tag, index) => (
+                    <span className="tag-item" key={`${groupIndex}-${tag}-${index}`}>
+                      <span>{tag}</span>
+                      <span className="tag-star" aria-hidden="true">
+                        ✦
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="ability-heading">
@@ -345,7 +353,7 @@ function CtaSection() {
     <section className="cta-section">
       <div className="safe cta-content">
         <h2>切实解决业务问题，成就更好的产品</h2>
-        <a className="button button-light" href="#contact">
+        <a className="button button-light cta-download-button" href="#contact">
           下载 2026 作品集
         </a>
       </div>
